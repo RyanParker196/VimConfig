@@ -45,12 +45,12 @@ set encoding=utf-8
 
 " Pluggins
 call plug#begin('~/.vim/plugged')
+Plug 'neovim/nvim-lspconfig'
 Plug 'kien/ctrlp.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'gruvbox-community/gruvbox'
 Plug 'jiangmiao/auto-pairs'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'scrooloose/nerdtree'
 call plug#end()
 
@@ -59,6 +59,10 @@ map <C-h> <C-w>h
 map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
+
+" Reshape splits
+map <C-LEFT> <C-w><
+map <C-RIGHT> <C-w>>
 
 " Add new lines
 nnoremap <A-CR> O<ESC>
