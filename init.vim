@@ -1,4 +1,4 @@
-" Don't try to be vi compatible
+"Don't try to be vi compatible
 set nocompatible
 
 " Remove bar
@@ -46,6 +46,8 @@ set encoding=utf-8
 " Pluggins
 call plug#begin('~/.vim/plugged')
 Plug 'neovim/nvim-lspconfig'
+Plug 'williamboman/nvim-lsp-installer'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'kien/ctrlp.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -71,14 +73,30 @@ nnoremap <CR> o<ESC>
 " Search with ,
 nnoremap , /
 
+" Colors and syntax
 colorscheme gruvbox
-
 syntax on
 
+" Custom binds
 let mapleader = " "
-
 nnoremap <leader>q :NERDTreeToggle<cr>
+nnoremap <leader>f :NERDTreeFind<cr>
 nnoremap <leader>w :w<cr>
 nnoremap <leader>r :!!<cr>
 nnoremap <leader>b :buffers<cr>
+
+" Close NERDTree if its the only file open
+function! s:CloseIfOnlyControlWinLeft()
+  if winnr("$") != 1
+    return
+  endif
+  if (exists("t:NERDTreeBufName") && bufwinnr(t:NERDTreeBufName) != -1)
+        \ || &buftype == 'quickfix'
+    q
+  endif
+endfunction
+augroup CloseIfOnlyControlWinLeft
+  au!
+  au BufEnter * call s:CloseIfOnlyControlWinLeft()
+augroup END
 
